@@ -1,5 +1,5 @@
 ﻿use super::utils::command::Command;
-use super::utils::command::Response;
+use crate::response::Response;
 use std::str::Split;
 
 pub struct Hello {

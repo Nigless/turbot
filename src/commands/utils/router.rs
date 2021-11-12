@@ -1,5 +1,5 @@
 ﻿use super::command::Command;
-use super::command::Response;
+use crate::response::Response;
 use std::collections::HashMap;
 use std::str::Split;
 
