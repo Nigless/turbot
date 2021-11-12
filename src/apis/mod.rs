@@ -1,2 +1,2 @@
 ﻿pub mod console;
-mod utils;
+pub mod utils;

@@ -1,4 +1,5 @@
 ﻿use super::about;
+use super::channel::channel;
 use super::hello;
 use super::utils::command::Command;
 use super::utils::router;
@@ -13,7 +14,10 @@ pub struct Root {
 
 impl Command for Root {
 	fn execute(&self, arguments: Split<&str>) -> Response {
-		self.router.dispatch(arguments)
+		match self.router.dispatch(arguments) {
+			Some(response) => return response,
+			None => return Err("ERROR".to_string()),
+		}
 	}
 
 	fn get_key(&self) -> String {
@@ -26,6 +30,7 @@ pub fn new() -> Root {
 
 	router.register(Box::new(hello::new()));
 	router.register(Box::new(about::new()));
+	router.register(Box::new(channel::new()));
 
 	return Root {
 		key: String::new(),

@@ -12,14 +12,14 @@ impl Router {
 		self.map.insert(command.get_key(), command);
 	}
 
-	pub fn dispatch(&self, mut arguments: Split<&str>) -> Response {
+	pub fn dispatch(&self, mut arguments: Split<&str>) -> Option<Response> {
 		if let Some(key) = arguments.next() {
 			if let Some(command) = self.map.get(key.trim()) {
-				return command.execute(arguments);
+				return Some(command.execute(arguments));
 			}
-			return Err("unknown command".to_string());
+			return Some(Err("unknown command".to_string()));
 		}
-		return Err("Oops".to_string());
+		return None;
 	}
 }
 
