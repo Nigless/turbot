@@ -1,7 +1,7 @@
-﻿use super::utils::api::IApi;
+﻿use super::utils::iapi::IApi;
 use crate::commands::root;
 use crate::commands::root::Root;
-use crate::commands::utils::command::Command;
+use crate::commands::utils::icommand::ICommand;
 use crate::response::Response;
 use std::io;
 use std::rc::Rc;

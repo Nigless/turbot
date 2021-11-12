@@ -1,4 +1,4 @@
-﻿use super::utils::command::Command;
+﻿use super::utils::icommand::ICommand;
 use crate::response::Response;
 use std::str::Split;
 
@@ -6,7 +6,7 @@ pub struct About {
 	key: String,
 }
 
-impl Command for About {
+impl ICommand for About {
 	fn execute(&self, mut arguments: Split<&str>) -> Response {
 		Ok("Soon...".to_string())
 	}

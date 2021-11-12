@@ -1,2 +1,2 @@
-﻿pub mod command;
+﻿pub mod icommand;
 pub mod router;

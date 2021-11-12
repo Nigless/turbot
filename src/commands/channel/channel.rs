@@ -1,4 +1,4 @@
-﻿use super::super::utils::command::Command;
+﻿use super::super::utils::icommand::ICommand;
 use super::super::utils::router;
 use super::super::utils::router::Router;
 use super::list;
@@ -10,7 +10,7 @@ pub struct Channel {
 	router: Router,
 }
 
-impl Command for Channel {
+impl ICommand for Channel {
 	fn execute(&self, mut arguments: Split<&str>) -> Response {
 		match self.router.dispatch(arguments) {
 			Some(response) => return response,

@@ -1,14 +1,14 @@
-﻿use super::command::Command;
+﻿use super::icommand::ICommand;
 use crate::response::Response;
 use std::collections::HashMap;
 use std::str::Split;
 
 pub struct Router {
-	map: HashMap<String, Box<dyn Command>>,
+	map: HashMap<String, Box<dyn ICommand>>,
 }
 
 impl Router {
-	pub fn register(&mut self, command: Box<dyn Command>) {
+	pub fn register(&mut self, command: Box<dyn ICommand>) {
 		self.map.insert(command.get_key(), command);
 	}
 

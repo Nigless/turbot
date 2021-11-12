@@ -1,7 +1,7 @@
 ﻿use super::about;
 use super::channel::channel;
 use super::hello;
-use super::utils::command::Command;
+use super::utils::icommand::ICommand;
 use super::utils::router;
 use super::utils::router::Router;
 use crate::response::Response;
@@ -12,7 +12,7 @@ pub struct Root {
 	router: Router,
 }
 
-impl Command for Root {
+impl ICommand for Root {
 	fn execute(&self, arguments: Split<&str>) -> Response {
 		match self.router.dispatch(arguments) {
 			Some(response) => return response,
