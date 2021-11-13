@@ -9,11 +9,11 @@ pub struct List {
 
 impl ICommand for List {
 	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
-		Ok("Hi!".to_string())
+		Ok("Hi!".to_owned())
 	}
 
 	fn get_key(&self) -> String {
-		self.key.to_string()
+		self.key.to_owned()
 	}
 }
 

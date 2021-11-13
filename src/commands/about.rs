@@ -9,11 +9,11 @@ pub struct About {
 
 impl ICommand for About {
 	fn execute(&self, mut arguments: Split<&str>, context: Context) -> Response {
-		Ok("Soon...".to_string())
+		Ok("Soon...".to_owned())
 	}
 
 	fn get_key(&self) -> String {
-		self.key.to_string()
+		self.key.to_owned()
 	}
 }
 

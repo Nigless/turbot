@@ -47,7 +47,7 @@ impl IApi for Console {
 		self.root.execute(arguments, context)
 	}
 	fn get_name(&self) -> String {
-		self.name.to_string()
+		self.name.to_owned()
 	}
 }
 

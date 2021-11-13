@@ -18,7 +18,7 @@ impl Router {
 			if let Some(command) = self.map.get(key.trim()) {
 				return Some(command.execute(arguments, context));
 			}
-			return Some(Err("unknown command".to_string()));
+			return Some(Err("unknown command".to_owned()));
 		}
 		return None;
 	}

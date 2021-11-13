@@ -15,12 +15,12 @@ impl ICommand for Channel {
 	fn execute(&self, mut arguments: Split<&str>, context: Context) -> Response {
 		match self.router.dispatch(arguments, context) {
 			Some(response) => return response,
-			None => return Err("Error".to_string()),
+			None => return Err("Error".to_owned()),
 		}
 	}
 
 	fn get_key(&self) -> String {
-		self.key.to_string()
+		self.key.to_owned()
 	}
 }
 
