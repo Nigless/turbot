@@ -1,4 +1,5 @@
 ﻿use super::utils::icommand::ICommand;
+use crate::context::Context;
 use crate::response::Response;
 use std::str::Split;
 
@@ -7,7 +8,7 @@ pub struct About {
 }
 
 impl ICommand for About {
-	fn execute(&self, mut arguments: Split<&str>) -> Response {
+	fn execute(&self, mut arguments: Split<&str>, context: Context) -> Response {
 		Ok("Soon...".to_string())
 	}
 

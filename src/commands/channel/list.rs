@@ -1,4 +1,5 @@
 ﻿use super::super::utils::icommand::ICommand;
+use crate::context::Context;
 use crate::response::Response;
 use std::str::Split;
 
@@ -7,7 +8,7 @@ pub struct List {
 }
 
 impl ICommand for List {
-	fn execute(&self, arguments: Split<&str>) -> Response {
+	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
 		Ok("Hi!".to_string())
 	}
 

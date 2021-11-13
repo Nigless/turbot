@@ -1,5 +1,6 @@
 mod apis;
 pub mod commands;
+mod context;
 pub mod message;
 mod response;
 use apis::console;

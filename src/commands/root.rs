@@ -4,6 +4,7 @@ use super::hello;
 use super::utils::icommand::ICommand;
 use super::utils::router;
 use super::utils::router::Router;
+use crate::context::Context;
 use crate::response::Response;
 use std::str::Split;
 
@@ -13,8 +14,8 @@ pub struct Root {
 }
 
 impl ICommand for Root {
-	fn execute(&self, arguments: Split<&str>) -> Response {
-		match self.router.dispatch(arguments) {
+	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
+		match self.router.dispatch(arguments, context) {
 			Some(response) => return response,
 			None => return Err("ERROR".to_string()),
 		}
