@@ -6,6 +6,8 @@ use crate::context;
 use crate::context::Context;
 use crate::response::Response;
 use async_trait::async_trait;
+use serenity;
+use serenity::client::{Client, EventHandler};
 use std::io;
 use std::rc::Rc;
 use std::str::Split;
@@ -20,26 +22,8 @@ pub struct Console {
 #[async_trait]
 impl IApi for Console {
 	async fn start(&mut self) -> Response {
-		self.is_active = true;
-		let mut input = String::new();
-		loop {
-			if !self.is_active {
-				return Ok("...".to_owned());
-			}
-			if let Err(error) = io::stdin().read_line(&mut input) {
-				println!("{}", error);
-				continue;
-			};
-			let mut cmdcontext = context::new();
-			cmdcontext.set("user".to_owned(), "root".to_owned());
-			cmdcontext.set_parent(Some(self.context.clone()));
-
-			match self.execute(input.split(" "), cmdcontext) {
-				Ok(response) => println!("{}", response),
-				Err(error) => println!("ERROR: {}", error),
-			}
-			input.clear();
-		}
+		let mut client = Client::builder("token");
+		Ok("sdf".to_owned())
 	}
 
 	fn stop(&mut self) {
