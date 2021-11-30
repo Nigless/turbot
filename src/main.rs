@@ -9,5 +9,5 @@ use std::rc::Rc;
 
 fn main() {
 	let root = Rc::from(root::new());
-	console::new(root, true);
+	console::new(root);
 }

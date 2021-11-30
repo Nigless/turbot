@@ -51,7 +51,7 @@ impl IApi for Console {
 	}
 }
 
-pub fn new(root: Rc<Root>, is_active: bool) -> Console {
+pub fn new(root: Rc<Root>) -> Console {
 	let mut context = context::new();
 	context.set("api".to_owned(), "console".to_owned());
 
@@ -61,8 +61,5 @@ pub fn new(root: Rc<Root>, is_active: bool) -> Console {
 		root,
 		context: Rc::from(RefCell::from(context)),
 	};
-	if is_active {
-		console.start();
-	}
 	console
 }
