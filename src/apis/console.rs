@@ -57,7 +57,7 @@ pub fn new(root: Rc<Root>) -> Console {
 
 	Console {
 		is_active: false,
-		name: String::from("console"),
+		name: "console".to_owned(),
 		root,
 		context: Rc::from(RefCell::from(context)),
 	}
