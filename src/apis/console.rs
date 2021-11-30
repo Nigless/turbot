@@ -5,6 +5,7 @@ use crate::commands::utils::icommand::ICommand;
 use crate::context;
 use crate::context::Context;
 use crate::response::Response;
+use std::cell::RefCell;
 use std::io;
 use std::rc::Rc;
 use std::str::Split;
@@ -13,7 +14,7 @@ pub struct Console {
 	is_active: bool,
 	name: String,
 	root: Rc<Root>,
-	context: Rc<Context>,
+	context: Rc<RefCell<Context>>,
 }
 
 impl IApi for Console {
@@ -59,7 +60,7 @@ pub fn new(root: Rc<Root>, is_active: bool) -> Console {
 		is_active: false,
 		name: String::from("console"),
 		root,
-		context: Rc::from(context),
+		context: Rc::from(RefCell::from(context)),
 	};
 	if is_active {
 		console.start();
