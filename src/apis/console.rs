@@ -1,5 +1,4 @@
 ﻿use super::utils::iapi::IApi;
-use crate::commands::root;
 use crate::commands::root::Root;
 use crate::commands::utils::icommand::ICommand;
 use crate::context;
@@ -29,11 +28,11 @@ impl IApi for Console {
 				println!("{}", error);
 				continue;
 			};
-			let mut cmdcontext = context::new();
-			cmdcontext.set("user".to_owned(), "root".to_owned());
-			cmdcontext.set_parent(Some(self.context.clone()));
+			let mut cmd_context = context::new();
+			cmd_context.set("user".to_owned(), "root".to_owned());
+			cmd_context.set_parent(Some(self.context.clone()));
 
-			match self.execute(input.split(" "), cmdcontext) {
+			match self.execute(input.split(" "), cmd_context) {
 				Ok(response) => println!("{}", response),
 				Err(error) => println!("ERROR: {}", error),
 			}
