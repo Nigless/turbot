@@ -17,12 +17,12 @@ pub struct Console {
 }
 
 impl IApi for Console {
-	fn start(&mut self) -> Response {
+	fn start(&mut self) {
 		self.is_active = true;
 		let mut input = String::new();
 		loop {
 			if !self.is_active {
-				return Ok(String::from(""));
+				return;
 			}
 			if let Err(error) = io::stdin().read_line(&mut input) {
 				println!("{}", error);
@@ -55,11 +55,10 @@ pub fn new(root: Rc<Root>) -> Console {
 	let mut context = context::new();
 	context.set("api".to_owned(), "console".to_owned());
 
-	let mut console = Console {
+	Console {
 		is_active: false,
 		name: String::from("console"),
 		root,
 		context: Rc::from(RefCell::from(context)),
-	};
-	console
+	}
 }
