@@ -3,27 +3,19 @@ use crate::commands::root::Root;
 use crate::commands::utils::icommand::ICommand;
 use crate::context;
 use crate::context::Context;
-use crate::response::Response;
 use std::cell::RefCell;
 use std::io;
 use std::rc::Rc;
-use std::str::Split;
 
 pub struct Console {
-	is_active: bool,
-	name: String,
-	root: Rc<Root>,
+	root: Root,
 	context: Rc<RefCell<Context>>,
 }
 
 impl IApi for Console {
-	fn start(&mut self) {
-		self.is_active = true;
+	fn start(&self) {
 		let mut input = String::new();
 		loop {
-			if !self.is_active {
-				return;
-			}
 			if let Err(error) = io::stdin().read_line(&mut input) {
 				println!("{}", error);
 				continue;
@@ -32,32 +24,20 @@ impl IApi for Console {
 			cmd_context.set("user".to_owned(), "root".to_owned());
 			cmd_context.set_parent(Some(self.context.clone()));
 
-			match self.execute(input.split(" "), cmd_context) {
+			match self.root.execute(input.split(" "), cmd_context){
 				Ok(response) => println!("{}", response),
 				Err(error) => println!("ERROR: {}", error),
 			}
 			input.clear();
 		}
 	}
-
-	fn stop(&mut self) {
-		self.is_active = false;
-	}
-	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
-		self.root.execute(arguments, context)
-	}
-	fn get_name(&self) -> String {
-		self.name.to_owned()
-	}
 }
 
-pub fn new(root: Rc<Root>) -> Console {
+pub fn new(root: Root) -> Console {
 	let mut context = context::new();
 	context.set("api".to_owned(), "console".to_owned());
 
 	Console {
-		is_active: false,
-		name: "console".to_owned(),
 		root,
 		context: Rc::from(RefCell::from(context)),
 	}

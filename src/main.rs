@@ -4,10 +4,12 @@ mod context;
 pub mod message;
 mod response;
 use apis::console;
+use apis::utils::iapi::IApi;
 use commands::root;
 use std::rc::Rc;
 
 fn main() {
-	let root = Rc::from(root::new());
-	console::new(root);
+	let root = root::new();
+	let console = console::new(root);
+	console.start()
 }
