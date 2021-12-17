@@ -1,6 +1,7 @@
 ﻿use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
+
 pub struct Context {
 	parent: Link,
 	data: HashMap<String, String>,
@@ -13,13 +14,13 @@ impl Context {
 		self.parent = parent
 	}
 
-	pub fn get(&mut self, key: String) -> Option<String> {
+	pub fn get(&self, key: String) -> Option<String> {
 		if let Some(value) = self.data.get(&key) {
 			return Some(value.to_owned());
 		};
 
-		if let Some(parent) = self.parent.take() {
-			return parent.borrow_mut().get(key);
+		if let Some(parent) = &self.parent {
+			return parent.borrow().get(key);
 		}
 
 		None
@@ -30,7 +31,7 @@ impl Context {
 			return self.data.insert(key, value);
 		};
 
-		if let Some(parent) = self.parent.take() {
+		if let Some(parent) = &self.parent {
 			return parent.borrow_mut().set(key, value);
 		}
 
