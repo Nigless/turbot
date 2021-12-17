@@ -6,7 +6,6 @@ mod response;
 use apis::console;
 use apis::utils::iapi::IApi;
 use commands::root;
-use std::rc::Rc;
 
 fn main() {
 	let root = root::new();
