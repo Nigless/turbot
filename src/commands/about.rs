@@ -8,7 +8,7 @@ pub struct About {
 }
 
 impl ICommand for About {
-	fn execute(&self, mut arguments: Split<&str>, context: Context) -> Response {
+	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
 		Ok("Soon...".to_owned())
 	}
 
