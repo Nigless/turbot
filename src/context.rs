@@ -37,11 +37,11 @@ impl Context {
 
 		None
 	}
-}
 
-pub fn new() -> Context {
-	return Context {
-		parent: None,
-		data: HashMap::new(),
-	};
+	pub fn new() -> Self {
+		return Self {
+			parent: None,
+			data: HashMap::new(),
+		};
+	}
 }

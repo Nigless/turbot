@@ -1,9 +1,8 @@
 ﻿use super::super::utils::icommand::ICommand;
-use super::super::utils::router;
 use super::super::utils::router::Router;
-use super::list;
-use crate::response::Response;
+use super::list::List;
 use crate::request::Request;
+use crate::response::Response;
 
 pub struct Channel {
 	key: String,
@@ -23,13 +22,15 @@ impl ICommand for Channel {
 	}
 }
 
-pub fn new() -> Channel {
-	let mut router = router::new();
+impl Channel {
+	pub fn new() -> Self {
+		let mut router = Router::new();
 
-	router.register(Box::new(list::new()));
+		router.register(Box::new(List::new()));
 
-	return Channel {
-		key: String::from("channel"),
-		router,
-	};
+		return Self {
+			key: String::from("channel"),
+			router,
+		};
+	}
 }

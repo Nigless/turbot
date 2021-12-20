@@ -1,13 +1,13 @@
 ﻿use super::utils::icommand::ICommand;
-use crate::response::Response;
 use crate::request::Request;
+use crate::response::Response;
 
 pub struct About {
 	key: String,
 }
 
 impl ICommand for About {
-	fn execute(&self, request:Request) -> Response {
+	fn execute(&self, request: Request) -> Response {
 		Ok("Soon...".to_owned())
 	}
 
@@ -16,8 +16,10 @@ impl ICommand for About {
 	}
 }
 
-pub fn new() -> About {
-	return About {
-		key: String::from("about"),
-	};
+impl About {
+	pub fn new() -> Self {
+		return Self {
+			key: String::from("about"),
+		};
+	}
 }

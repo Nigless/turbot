@@ -1,6 +1,6 @@
 ﻿use super::super::utils::icommand::ICommand;
-use crate::response::Response;
 use crate::request::Request;
+use crate::response::Response;
 
 pub struct List {
 	key: String,
@@ -16,8 +16,10 @@ impl ICommand for List {
 	}
 }
 
-pub fn new() -> List {
-	List {
-		key: String::from("list"),
+impl List {
+	pub fn new() -> Self {
+		Self {
+			key: String::from("list"),
+		}
 	}
 }

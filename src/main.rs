@@ -2,14 +2,14 @@ mod apis;
 pub mod commands;
 mod context;
 pub mod message;
-mod response;
 mod request;
-use apis::console;
+mod response;
+use apis::console::Console;
 use apis::utils::iapi::IApi;
 use commands::root;
 
 fn main() {
 	let root = root::Root::new();
-	let console = console::new(root);
+	let console = Console::new(root);
 	console.start()
 }

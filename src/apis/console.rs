@@ -1,7 +1,5 @@
 ﻿use super::utils::iapi::IApi;
 use crate::commands::root::Root;
-use crate::commands::utils::icommand::ICommand;
-use crate::context;
 use crate::context::Context;
 use std::cell::RefCell;
 use std::io;
@@ -20,11 +18,11 @@ impl IApi for Console {
 				println!("{}", error);
 				continue;
 			};
-			let mut cmd_context = context::new();
+			let mut cmd_context = Context::new();
 			cmd_context.set("user".to_owned(), "root".to_owned());
 			cmd_context.set_parent(Some(self.context.clone()));
 
-			match self.root.execute((input.split_whitespace(), cmd_context)){
+			match self.root.execute((input.split_whitespace(), cmd_context)) {
 				Ok(response) => println!("{}", response),
 				Err(error) => println!("ERROR: {}", error),
 			}
@@ -32,13 +30,14 @@ impl IApi for Console {
 		}
 	}
 }
+impl Console {
+	pub fn new(root: Root) -> Self {
+		let mut context = Context::new();
+		context.set("api".to_owned(), "console".to_owned());
 
-pub fn new(root: Root) -> Console {
-	let mut context = context::new();
-	context.set("api".to_owned(), "console".to_owned());
-
-	Console {
-		root,
-		context: Rc::from(RefCell::from(context)),
+		Self {
+			root,
+			context: Rc::from(RefCell::from(context)),
+		}
 	}
 }

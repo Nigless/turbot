@@ -1,32 +1,28 @@
-﻿use super::about;
-use super::channel::channel;
-use super::hello;
-use super::utils::router;
+﻿use super::about::About;
+use super::channel::channel::Channel;
+use super::hello::Hello;
 use super::utils::router::Router;
-use crate::response::Response;
 use crate::request::Request;
+use crate::response::Response;
 
 pub struct Root {
 	router: Router,
 }
 
 impl Root {
-	pub fn execute(&self, request:Request) -> Response {
+	pub fn execute(&self, request: Request) -> Response {
 		match self.router.dispatch(request) {
 			Some(response) => return response,
 			None => return Err("ERROR".to_owned()),
 		}
 	}
-	
+
 	pub fn new() -> Self {
-		let mut router = router::new();
-	
-		router.register(Box::new(hello::new()));
-		router.register(Box::new(about::new()));
-		router.register(Box::new(channel::new()));
-	
-		return Self {
-			router,
-		};
+		let mut router = Router::new();
+		router.register(Box::new(Hello::new()));
+		router.register(Box::new(About::new()));
+		router.register(Box::new(Channel::new()));
+
+		return Self { router };
 	}
 }
