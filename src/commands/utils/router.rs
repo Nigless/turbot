@@ -1,8 +1,7 @@
 ﻿use super::icommand::ICommand;
-use crate::context::Context;
 use crate::response::Response;
 use std::collections::HashMap;
-use std::str::Split;
+use crate::request::Request;
 
 pub struct Router {
 	map: HashMap<String, Box<dyn ICommand>>,
@@ -13,10 +12,11 @@ impl Router {
 		self.map.insert(command.get_key(), command);
 	}
 
-	pub fn dispatch(&self, mut arguments: Split<&str>, context: Context) -> Option<Response> {
+	pub fn dispatch(&self, request: Request) -> Option<Response> {
+		let (mut arguments,context) = request;
 		if let Some(key) = arguments.next() {
 			if let Some(command) = self.map.get(key.trim()) {
-				return Some(command.execute(arguments, context));
+				return Some(command.execute((arguments,context)));
 			}
 			return Some(Err("unknown command".to_owned()));
 		}

@@ -4,9 +4,8 @@ use super::hello;
 use super::utils::icommand::ICommand;
 use super::utils::router;
 use super::utils::router::Router;
-use crate::context::Context;
 use crate::response::Response;
-use std::str::Split;
+use crate::request::Request;
 
 pub struct Root {
 	key: String,
@@ -14,8 +13,8 @@ pub struct Root {
 }
 
 impl ICommand for Root {
-	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
-		match self.router.dispatch(arguments, context) {
+	fn execute(&self, request:Request) -> Response {
+		match self.router.dispatch(request) {
 			Some(response) => return response,
 			None => return Err("ERROR".to_owned()),
 		}

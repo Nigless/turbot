@@ -1,14 +1,13 @@
 ﻿use super::utils::icommand::ICommand;
-use crate::context::Context;
 use crate::response::Response;
-use std::str::Split;
+use crate::request::Request;
 
 pub struct Hello {
 	key: String,
 }
 
 impl ICommand for Hello {
-	fn execute(&self, arguments: Split<&str>, context: Context) -> Response {
+	fn execute(&self, request:Request) -> Response {
 		Ok("Hi!".to_owned())
 	}
 

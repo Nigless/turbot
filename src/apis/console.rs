@@ -24,7 +24,7 @@ impl IApi for Console {
 			cmd_context.set("user".to_owned(), "root".to_owned());
 			cmd_context.set_parent(Some(self.context.clone()));
 
-			match self.root.execute(input.split(" "), cmd_context){
+			match self.root.execute((input.split_whitespace(), cmd_context)){
 				Ok(response) => println!("{}", response),
 				Err(error) => println!("ERROR: {}", error),
 			}

@@ -1,8 +1,7 @@
-﻿use crate::context::Context;
-use crate::response::Response;
-use std::str::Split;
+﻿use crate::response::Response;
+use crate::request::Request;
 
 pub trait ICommand {
-	fn execute(&self, arguments: Split<&str>, context: Context) -> Response;
+	fn execute(&self, request: Request) -> Response;
 	fn get_key(&self) -> String;
 }

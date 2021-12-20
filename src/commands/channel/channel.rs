@@ -2,9 +2,8 @@
 use super::super::utils::router;
 use super::super::utils::router::Router;
 use super::list;
-use crate::context::Context;
 use crate::response::Response;
-use std::str::Split;
+use crate::request::Request;
 
 pub struct Channel {
 	key: String,
@@ -12,8 +11,8 @@ pub struct Channel {
 }
 
 impl ICommand for Channel {
-	fn execute(&self, mut arguments: Split<&str>, context: Context) -> Response {
-		match self.router.dispatch(arguments, context) {
+	fn execute(&self, request: Request) -> Response {
+		match self.router.dispatch(request) {
 			Some(response) => return response,
 			None => return Err("Error".to_owned()),
 		}
