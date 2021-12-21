@@ -4,7 +4,6 @@ use crate::request::Request;
 use crate::response::Response;
 
 pub struct Channel {
-	key: String,
 	subrouter: SubRouter<Self>,
 }
 
@@ -17,7 +16,7 @@ impl ICommand for Channel {
 	}
 
 	fn get_key(&self) -> String {
-		self.key.to_owned()
+		"channel".to_owned()
 	}
 }
 
@@ -31,9 +30,6 @@ impl Channel {
 
 		subrouter.register("list", Self::list);
 
-		return Self {
-			key: String::from("channel"),
-			subrouter,
-		};
+		return Self { subrouter };
 	}
 }

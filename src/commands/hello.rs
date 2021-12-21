@@ -2,9 +2,7 @@
 use crate::request::Request;
 use crate::response::Response;
 
-pub struct Hello {
-	key: String,
-}
+pub struct Hello {}
 
 impl ICommand for Hello {
 	fn execute(&self, request: Request) -> Response {
@@ -12,14 +10,12 @@ impl ICommand for Hello {
 	}
 
 	fn get_key(&self) -> String {
-		self.key.to_owned()
+		"hello".to_owned()
 	}
 }
 
 impl Hello {
 	pub fn new() -> Self {
-		Self {
-			key: String::from("hello"),
-		}
+		Self {}
 	}
 }
