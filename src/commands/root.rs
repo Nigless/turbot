@@ -1,5 +1,4 @@
-﻿use super::about::About;
-use super::channel::channel::Channel;
+﻿use super::channel::Channel;
 use super::hello::Hello;
 use super::utils::router::Router;
 use crate::request::Request;
@@ -20,7 +19,6 @@ impl Root {
 	pub fn new() -> Self {
 		let mut router = Router::new();
 		router.register(Box::new(Hello::new()));
-		router.register(Box::new(About::new()));
 		router.register(Box::new(Channel::new()));
 
 		return Self { router };

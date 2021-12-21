@@ -1,17 +1,16 @@
-﻿use super::super::utils::icommand::ICommand;
-use super::super::utils::router::Router;
-use super::list::List;
+﻿use super::utils::icommand::ICommand;
+use super::utils::subrouter::SubRouter;
 use crate::request::Request;
 use crate::response::Response;
 
 pub struct Channel {
 	key: String,
-	router: Router,
+	subrouter: SubRouter<Self>,
 }
 
 impl ICommand for Channel {
 	fn execute(&self, request: Request) -> Response {
-		match self.router.dispatch(request) {
+		match self.subrouter.dispatch(self, request) {
 			Some(response) => return response,
 			None => return Err("Error".to_owned()),
 		}
@@ -23,14 +22,18 @@ impl ICommand for Channel {
 }
 
 impl Channel {
-	pub fn new() -> Self {
-		let mut router = Router::new();
+	fn list(owner: &Self, request: Request) -> Response {
+		Ok("".to_owned())
+	}
 
-		router.register(Box::new(List::new()));
+	pub fn new() -> Self {
+		let mut subrouter = SubRouter::new();
+
+		subrouter.register("list", Self::list);
 
 		return Self {
 			key: String::from("channel"),
-			router,
+			subrouter,
 		};
 	}
 }
