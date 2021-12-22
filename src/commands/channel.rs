@@ -21,7 +21,7 @@ impl ICommand for Channel {
 }
 
 impl Channel {
-	fn list(owner: &Self, request: Request) -> Response {
+	fn list(&self, request: Request) -> Response {
 		Ok("".to_owned())
 	}
 
