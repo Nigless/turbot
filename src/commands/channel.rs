@@ -1,18 +1,21 @@
 ﻿use super::utils::icommand::ICommand;
-use super::utils::subrouter::SubRouter;
+use super::utils::router::Router;
 use crate::request::Request;
 use crate::response::Response;
 
 pub struct Channel {
-	subrouter: SubRouter<Self>,
+	router: Router<fn(&Self, Request) -> Response>,
 }
 
 impl ICommand for Channel {
-	fn execute(&self, request: Request) -> Response {
-		match self.subrouter.dispatch(self, request) {
-			Some(response) => return response,
-			None => return Err("Error".to_owned()),
+	fn execute(&self, mut request: Request) -> Response {
+		if let Some(key) = request.0.next() {
+			match self.router.dispatch(key) {
+				Some(command) => return command(self, request),
+				None => return Err("ERROR".to_owned()),
+			}
 		}
+		Err("".to_owned())
 	}
 
 	fn get_key(&self) -> String {
@@ -26,10 +29,10 @@ impl Channel {
 	}
 
 	pub fn new() -> Self {
-		let mut subrouter = SubRouter::new();
+		let mut router = Router::<fn(&Self, Request) -> Response>::new();
 
-		subrouter.register("list", Self::list);
+		router.register("list".to_owned(), Self::list);
 
-		return Self { subrouter };
+		return Self { router };
 	}
 }

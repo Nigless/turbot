@@ -3,24 +3,17 @@ use crate::request::Request;
 use crate::response::Response;
 use std::collections::HashMap;
 
-pub struct Router {
-	map: HashMap<String, Box<dyn ICommand>>,
+pub struct Router<Type> {
+	map: HashMap<String, Type>,
 }
 
-impl Router {
-	pub fn register(&mut self, command: Box<dyn ICommand>) {
-		self.map.insert(command.get_key(), command);
+impl<Type> Router<Type> {
+	pub fn register(&mut self, key: String, command: Type) {
+		self.map.insert(key, command);
 	}
 
-	pub fn dispatch(&self, request: Request) -> Option<Response> {
-		let (mut arguments, context) = request;
-		if let Some(key) = arguments.next() {
-			if let Some(command) = self.map.get(key.trim()) {
-				return Some(command.execute((arguments, context)));
-			}
-			return Some(Err("unknown command".to_owned()));
-		}
-		return None;
+	pub fn dispatch(&self, key: &str) -> Option<&Type> {
+		self.map.get(key.trim())
 	}
 
 	pub fn new() -> Self {
