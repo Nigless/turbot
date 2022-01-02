@@ -11,5 +11,5 @@ use commands::root::Root;
 fn main() {
 	let root = Root::new();
 	let console = Console::new(root);
-	console.start()
+	console.start();
 }
