@@ -11,7 +11,7 @@ pub struct Root {
 
 impl Root {
 	pub fn execute(&self, mut request: Request) -> Response {
-		if let Some(key) = request.0.next() {
+		if let Some(key) = request.arguments.next() {
 			match self.router.dispatch(key) {
 				Some(command) => return command.execute(request),
 				None => return Err("ERROR".to_owned()),

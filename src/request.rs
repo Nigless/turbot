@@ -1,4 +1,7 @@
-use super::context::Context; 
+use super::context::Context;
 use std::str::SplitWhitespace;
 
-pub type Request<'a> = (SplitWhitespace<'a>,Context);
+pub struct Request<'a> {
+	pub arguments: SplitWhitespace<'a>,
+	pub context: Context,
+}
