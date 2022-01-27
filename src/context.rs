@@ -35,7 +35,7 @@ impl Context {
 			return parent.borrow_mut().set(key, value);
 		}
 
-		None
+		return self.data.insert(key, value);
 	}
 
 	pub fn new() -> Self {
