@@ -1,4 +1,5 @@
 ﻿use super::channel::Channel;
+use super::echo::Echo;
 use super::hello::Hello;
 use super::utils::icommand::ICommand;
 use super::utils::router::Router;
@@ -26,6 +27,8 @@ impl Root {
 		router.register(hello.get_key(), Box::new(hello));
 		let channel = Channel::new();
 		router.register(channel.get_key(), Box::new(channel));
+		let echo = Echo::new();
+		router.register(echo.get_key(), Box::new(echo));
 
 		return Self { router };
 	}
