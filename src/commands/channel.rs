@@ -19,7 +19,7 @@ impl ICommand for Channel {
 			}
 			match self.router.dispatch(key) {
 				Some(command) => return command(self, request),
-				None => return Err("ERROR".to_owned()),
+				None => return Err(format!("unknown command: \"{}\"", key)),
 			}
 		}
 		Err("".to_owned())
@@ -32,7 +32,7 @@ impl ICommand for Channel {
 
 impl Channel {
 	fn list(&self, request: Request) -> Response {
-		Ok("".to_owned())
+		Ok("list".to_owned())
 	}
 
 	pub fn new() -> Self {
