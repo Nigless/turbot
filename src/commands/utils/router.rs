@@ -1,7 +1,4 @@
-﻿use super::icommand::ICommand;
-use crate::request::Request;
-use crate::response::Response;
-use std::collections::HashMap;
+﻿use std::collections::HashMap;
 
 pub struct Router<Type> {
 	map: HashMap<String, Type>,
