@@ -49,7 +49,7 @@ impl Config {
 		if let Some(default) = Self::get_data(self.default.as_ref(), parameter.split(".")) {
 			return default;
 		}
-		panic!("Used a parameter that doesn't exist {}", parameter)
+		panic!("Used a parameter that doesn't exist `{}`", parameter)
 	}
 
 	fn get_data<'a>(data: Option<&'a Yaml>, keys: Split<&str>) -> Option<&'a Yaml> {
