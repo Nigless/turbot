@@ -7,7 +7,8 @@ mod response;
 use apis::console::Console;
 use apis::utils::iapi::IApi;
 use commands::root::Root;
-mod config;
+mod config_builder;
+mod options;
 
 fn main() {
 	let root = Root::new();
