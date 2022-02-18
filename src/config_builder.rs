@@ -25,10 +25,10 @@ impl<'a> ConfigBuilder<'a> {
 	}
 
 	pub fn generate(&self, file_path: Option<&str>) -> Result<(), Box<dyn Error>> {
-		let tmp_path_buf = &PathBuf::new();
-		let file_path: Option<&PathBuf> = file_path.map(|p| {
-			tmp_path_buf.join(p);
-			tmp_path_buf
+		let mut buf = PathBuf::new();
+		let file_path = file_path.map(|s| {
+			buf.push(s);
+			&buf
 		});
 		let mut file = OpenOptions::new()
 			.write(true)
@@ -38,11 +38,21 @@ impl<'a> ConfigBuilder<'a> {
 		Ok(())
 	}
 
-	pub fn open<Pattern>(&self, buff: &'a mut String) -> Result<Pattern, Box<dyn Error>>
+	pub fn open<Pattern>(
+		&self,
+		buff: &'a mut String,
+		file_path: Option<&str>,
+	) -> Result<Pattern, Box<dyn Error>>
 	where
 		Pattern: Deserialize<'a> + Merge,
 	{
-		let mut file = File::open(&self.path)?;
+		let mut buf = PathBuf::new();
+		let file_path = file_path.map(|s| {
+			buf.push(s);
+			&buf
+		});
+
+		let mut file = File::open(file_path.unwrap_or(&self.path))?;
 		file.read_to_string(buff)?;
 		let mut config = toml::from_str::<'a, Pattern>(buff)?;
 		config.merge(toml::from_str::<'a, Pattern>(self.default_data).unwrap());
