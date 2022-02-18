@@ -23,19 +23,21 @@ struct Config {
 }
 
 fn main() {
-	let args: Vec<String> = env::args().collect();
-
-	let mut config_path = None;
 	let config = ConfigBuilder::new(
 		"conf.toml",
 		r#"name = "rust"
-version = "0.1.0""#,
+		version = "0.1.0""#,
 	);
 
-	for arg in &args[1..] {
+	let args = env::args().collect::<Vec<String>>();
+	let mut args = args.iter().map(|x| x.as_str());
+
+	let mut config_path = None;
+	while let Some(arg) = args.next() {
 		for option in Dashes::from(arg) {
 			match option {
-				("generate-config", path) | ("g", path) => config.generate(path).unwrap(),
+				("generate-config", path) => config.generate(path).unwrap(),
+				("g", _) => config.generate(args.next()).unwrap(),
 				("config-path", path) => config_path = Some(path.unwrap()),
 				(option, _) => return println!("unknown option: {}", option),
 			};
