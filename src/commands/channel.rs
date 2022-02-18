@@ -1,6 +1,6 @@
 ﻿use super::utils::icommand::ICommand;
 use super::utils::router::Router;
-use crate::options::Options;
+use crate::dashes::Dashes;
 use crate::request::Request;
 use crate::response::Response;
 
@@ -11,10 +11,10 @@ pub struct Channel {
 impl ICommand for Channel {
 	fn execute(&self, mut request: Request) -> Response {
 		if let Some(key) = request.arguments.next() {
-			for option in Options::from(key) {
-				match option.as_ref() {
-					"h" | "help" => return Ok("help".to_owned()),
-					_ => return Err(format!("unknown option: \"{}\"", option)),
+			for option in Dashes::from(key) {
+				match option {
+					("h", _) | ("help", _) => return Ok("help".to_owned()),
+					(option, _) => return Err(format!("unknown option: \"{}\"", option)),
 				};
 			}
 			match self.router.dispatch(key) {

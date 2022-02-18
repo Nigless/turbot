@@ -8,7 +8,7 @@ use apis::console::Console;
 use apis::utils::iapi::IApi;
 use commands::root::Root;
 mod config_builder;
-mod options;
+mod dashes;
 
 fn main() {
 	let root = Root::new();
