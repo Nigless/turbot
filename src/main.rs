@@ -29,7 +29,7 @@ fn main() {
 		version = "0.1.0""#,
 	);
 
-	let args = env::args().collect::<Vec<String>>();
+	let args = env::args().skip(1).collect::<Vec<String>>();
 	let mut args = args.iter().map(|x| x.as_str());
 
 	let mut config_path = None;
