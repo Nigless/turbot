@@ -12,6 +12,7 @@ use config_builder::ConfigBuilder;
 use std::env;
 mod dashes;
 use dashes::Dashes;
+use indoc::indoc;
 use merge::Merge;
 use serde_derive::Deserialize;
 
@@ -25,8 +26,10 @@ struct Config {
 fn main() {
 	let config = ConfigBuilder::new(
 		"conf.toml",
-		r#"name = "rust"
-version = "0.1.0""#,
+		indoc! {r#"
+			name = "rust"
+			version = "0.1.0"
+		"#},
 	);
 
 	let args = env::args().skip(1).collect::<Vec<String>>();
