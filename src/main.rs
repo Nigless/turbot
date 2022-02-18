@@ -26,7 +26,7 @@ fn main() {
 	let config = ConfigBuilder::new(
 		"conf.toml",
 		r#"name = "rust"
-		version = "0.1.0""#,
+version = "0.1.0""#,
 	);
 
 	let args = env::args().skip(1).collect::<Vec<String>>();
