@@ -15,8 +15,6 @@ use dashes::Dashes;
 use merge::Merge;
 use serde_derive::Deserialize;
 
-mod merge_types {}
-
 #[derive(Merge, Deserialize)]
 struct Config {
 	name: Option<String>,
