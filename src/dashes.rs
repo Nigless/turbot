@@ -48,7 +48,7 @@ impl<'a> Dashes<'a> {
 	fn parse_option(&mut self) -> Option<Dash<'a>> {
 		if let Some(ch) = self.next_str() {
 			return match ch {
-				"-" => Some((self.parse_name()?, self.parse_value())),
+				"-" => self.parse_name(),
 				_ => {
 					self.parse = Self::parse_alias;
 					self.parse_alias()
@@ -58,7 +58,7 @@ impl<'a> Dashes<'a> {
 		None
 	}
 
-	fn parse_name(&mut self) -> Option<&'a str> {
+	fn parse_name(&mut self) -> Option<Dash<'a>> {
 		let start = self.index;
 		while let Some(ch) = self.next_str() {
 			match ch {
@@ -66,7 +66,7 @@ impl<'a> Dashes<'a> {
 					if self.index == start + 1 {
 						return None;
 					}
-					return Some(&self.string[start..self.index - 1]);
+					return Some((&self.string[start..self.index - 1], self.parse_value()));
 				}
 				_ => continue,
 			}
@@ -76,13 +76,10 @@ impl<'a> Dashes<'a> {
 			return None;
 		}
 
-		Some(&self.string[start..self.index])
+		Some((&self.string[start..self.index], None))
 	}
 
 	fn parse_value(&mut self) -> Option<&'a str> {
-		if self.current_str()? != "=" {
-			return None;
-		}
 		Some(&self.string[self.index..])
 	}
 
