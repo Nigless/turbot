@@ -30,14 +30,7 @@ impl<'a> Dashes<'a> {
 		}
 		Some(&self.string[i - 1..i])
 	}
-
-	fn current_str(&mut self) -> Option<&'a str> {
-		if self.finished {
-			return None;
-		}
-		Some(&self.string[self.index - 1..self.index])
-	}
-
+	
 	fn parse(&mut self) -> Option<Dash<'a>> {
 		return match self.next_str()? {
 			"-" => self.parse_option(),
